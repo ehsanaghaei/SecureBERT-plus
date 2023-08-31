@@ -1,5 +1,3 @@
-# https://colab.research.google.com/github/huggingface/notebooks/blob/main/transformers_doc/en/pytorch/language_modeling.ipynb#scrollTo=FX3tVGtTXKMp
-
 import torch
 import logging
 # from Python_projects.TextGeneration.lib.CVE2CoA_functions import func_savejson
@@ -44,8 +42,8 @@ class Config:
         batch = 6
     tokenizer = "/users/eaghaei/Python_projects/RoBERTa/SecureBERT"
     # tokenizer = "microsoft/deberta-base"
-    train_data = "/users/eaghaei/Python_projects/TextGeneration/data/SecureBERT_Dataset_2023_2.txt"
-    # train_data = "/users/eaghaei/Python_projects/TextGeneration/dataset_512_uncased_m.txt"
+    train_data = "./data/SecureBERT_Dataset_2023_2.txt"
+    # train_data = "dataset_512_uncased_m.txt"
     epochs = 10
     shuffle = False
     train_tokenizer = False
@@ -129,7 +127,7 @@ dataset = TextDataset(filepath, tokenizer, block_size)
 logging.warning(f"Load Model")
 
 # model = RobertaForMaskedLM.from_pretrained(Config.model_name, ignore_mismatched_sizes=True)
-model = RobertaForMaskedLM.from_pretrained("/users/eaghaei/Python_projects/TextGeneration/models/SecureBERT-Plus/checkpoint-155000")
+model = RobertaForMaskedLM.from_pretrained("./SecureBERT-Plus/checkpoint-155000")
 
 batch_size = Config.batch
 epochs = Config.epochs
@@ -141,7 +139,7 @@ data_collator = DataCollatorForLanguageModeling(
     tokenizer=tokenizer, mlm=True
 )
 training_args = TrainingArguments(
-    output_dir=f"/users/eaghaei/Python_projects/TextGeneration/models/{Config.model_name}",
+    output_dir=f"./models/{Config.model_name}",
     overwrite_output_dir=True,
     num_train_epochs=Config.epochs,
     per_device_train_batch_size=Config.batch,
